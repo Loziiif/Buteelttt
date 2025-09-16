@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h2>Бараа нэмэх</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Нэмэх</button>
+  </form>
+
+  <hr>
+
+  <h2>Бараа жагсаалт</h2>
+
+  <form method="get" class="mb-3">
+    <select name="category" class="form-select w-25 d-inline-block">
+      <option value="">Бүх категори</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-secondary btn-sm">Шүүх</button>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Бараа</th>
+        <th>Категори</th>
+        <th>Үнэ</th>
+        <th>Нөөц</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.title }}</td>
+        <td>{{ product.category.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">Бараа байхгүй байна.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
