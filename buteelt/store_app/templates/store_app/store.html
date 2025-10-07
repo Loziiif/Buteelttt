@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+<h1>Welcome to Our Store</h1>
+
+<!-- Categories Section -->
+<section>
+    <h2>Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li style="margin-bottom:20px;">
+                <strong>{{ category.category_name }}</strong><br>
+                {% if category.cat_image %}
+                    <img src="{{ category.cat_image.url }}" alt="{{ category.category_name }}" style="width:100px; height:auto; display:block; margin-top:5px;">
+                {% endif %}
+                <p>{{ category.description }}</p>
+            </li>
+        {% empty %}
+            <li>No categories found.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<hr>
+
+<!-- Products Section -->
+<section>
+    <h2>Products</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:20px;">
+        {% for product in products %}
+            <div style="border:1px solid #ccc; padding:10px; width:200px; box-sizing:border-box;">
+                <h3>{{ product.product_name }}</h3>
+                {% if product.cat_image %}
+                    <img src="{{ product.cat_image.url }}" alt="{{ product.product_name }}" style="width:100%; height:auto; display:block; margin-bottom:5px;">
+                {% endif %}
+                <p><strong>Category:</strong> {{ product.category.category_name }}</p>
+                <p>{{ product.description }}</p>
+            </div>
+        {% empty %}
+            <p>No products found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

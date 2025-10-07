@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Store{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Bootstrap (сонголттой) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+
+    <!-- JS (сонголттой) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="bg-light py-3 mb-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4">My Store</h1>
+            <nav>
+                <a class="mx-2" href="{% url 'index' %}">Home</a>
+                <a class="mx-2" href="{% url 'store' %}">Store</a>
+                <a class="mx-2" href="{% url 'cart' %}">Cart</a>
+                <a class="mx-2" href="{% url 'dashboard' %}">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+             {% block content %}{% endblock %}
+
+    </main>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <p>My Store Footer &copy; 2025</p>
+    </footer>
+</body>
+</html>

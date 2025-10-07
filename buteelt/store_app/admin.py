@@ -1,15 +1,11 @@
 from django.contrib import admin
 from .models import Category, Product
 
-# Category Admin
-@admin.register(Category)
-class Category(admin.ModelAdmin):
-    list_display = ('id', 'name')       # Admin дээр баганаар харагдах зүйл
-    search_fields = ('name',)           # Хайлтын талбар
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('category_name',)}
+admin.site.register(Category, CategoryAdmin) # type: ignore
 
-# Product Admin
-@admin.register(Product)
-class Product(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'price', 'stock')  # Admin-д харагдах баганууд
-    list_filter = ('category',)                                  # Category-аар шүүх боломж
-    search_fields = ('title', 'description')                     # Хайлтын талбар
+
+class ProductAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('product_name',)}
+admin.site.register(Product, ProductAdmin) # type: ignore
